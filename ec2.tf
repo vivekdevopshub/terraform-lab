@@ -5,7 +5,7 @@ resource "aws_instance" "MediaWiki-Server" {
   vpc_security_group_ids = ["${aws_security_group.mediawiki-sg.id}"]
 
    tags = {
-        name                   = "MediaWiki-Server"
+        Name                   = "MediaWiki-Server"
           }
 
   root_block_device {
