@@ -1,0 +1,27 @@
+---
+- name: Install dependencies
+  hosts: all
+  become: true
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - mariadb
+    - php
+    - php-pear
+    - php-xml
+    - php-mysql
+    - php-intl
+    - php-gd
+    - php-mbstring
+    - ImageMagick-perl
+    - wget
+    
+- name: Download MediaWiki
+  get_url:
+    url: http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz
+    dest: /tmp/mediawiki.tgz
+    
+- name: Unarchive MediaWiki
+  unarchive:
+    src: /tmp/mediawiki.tgz
+    dest: /tmp
