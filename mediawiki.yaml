@@ -1,27 +1,35 @@
 ---
-- name: Install dependencies
-  hosts: all
+- hosts: all
   become: true
-  yum: name={{ item }} state=present
-  with_items:
-    - httpd
-    - mariadb
-    - php
-    - php-pear
-    - php-xml
-    - php-mysql
-    - php-intl
-    - php-gd
-    - php-mbstring
-    - ImageMagick-perl
-    - wget
-    
-- name: Download MediaWiki
-  get_url:
-    url: http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz
-    dest: /tmp/mediawiki.tgz
-    
-- name: Unarchive MediaWiki
-  unarchive:
-    src: /tmp/mediawiki.tgz
-    dest: /tmp
+
+  tasks:
+    - name: Install httpd
+      yum:
+        name: "httpd"
+        state: "present"
+
+    - name: Installing dependencies
+      yum:
+        name:
+          - php
+          - php-xml
+          - php-mbstring
+          - ImageMagick-perl
+        state: present
+
+    - name: Start Apache Server
+      service:
+         name: "httpd"
+         state: started
+         enabled: True
+
+    - name: Mediawiki Download and configure
+      shell: |
+         yum install wget
+         mkdir /var/www/html
+         cd /tmp/
+         sudo rm -rf med*
+         wget http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz
+         tar -xvf med*
+         sudo rm -rf /var/www/html/*
+         mv med*/* /var/www/html/
