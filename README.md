@@ -4,7 +4,7 @@
 
 
 
-Steps-
+Steps- (Integrated Terraform + Ansible + Jenkins ) :)
 1) Need Jenkins to deploy the CI-CD pipeline. (Create a pipelineand use the Jenkinsfile)
 2) Install Terraform , Ansible , Git as per requirement.
 3) Install Plugin for Terraform , Ansible etc.
