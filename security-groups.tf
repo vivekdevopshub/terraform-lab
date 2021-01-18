@@ -11,6 +11,14 @@ resource "aws_security_group_rule" "rule1" {
   cidr_blocks       = ["0.0.0.0/0"]     // Need to be restricted
   security_group_id = aws_security_group.mediawiki-sg.id
 }
+resource "aws_security_group_rule" "rule2" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]     // Need to be restricted
+  security_group_id = aws_security_group.mediawiki-sg.id
+}
 
 resource "aws_security_group_rule" "rule-ssh-allow" {
   type              = "ingress"
